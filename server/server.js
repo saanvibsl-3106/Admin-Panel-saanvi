@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const authRouter = require('../routes/auth-router'); // Corrected path
+const authRouter = require('./routes/auth-router'); // Corrected path
 const app = express();
 const port = 3000;
 
