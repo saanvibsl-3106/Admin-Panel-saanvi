@@ -1,0 +1,28 @@
+# Node modules directory
+node_modules/
+
+# Environment variable files
+.env
+
+# Build output directories
+dist/
+build/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+
+# IDE-specific files and directories
+.vscode/
+.idea/
+
+# Miscellaneous
+*.pid
+*.seed
+
+# Other specific files or directories to ignore
+*.tgz
+*.lock
+*.coverage
