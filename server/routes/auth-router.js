@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authControllers = require("../../controllers/auth-controller"); // Correctly import the controllers
+const authControllers = require("../controllers/auth-controller"); // Correctly import the controllers
 
 // Define routes
 router.get('/', authControllers.home); // Use home controller for GET requests to '/api/auth/'
