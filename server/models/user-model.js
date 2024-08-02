@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs'); // To hash passwords
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -31,7 +32,21 @@ userSchema.pre('save', async function(next) {
   } catch (err) {
     next(err);
   }
-});
+}); 
+
+//JWT
+userSchema.methods.generateToken = async function() {
+  try {
+    return jwt.sign({
+      userId: this._id.toString(),
+      username: this.username,
+      isAdmin: this.isAdmin,
+    }, process.env.JWT_KEY, { expiresIn: '1d' });
+  } catch (error) {
+    console.error(error);
+    throw error; // Optional: rethrow the error if you want to handle it higher up
+  }
+};
 
 const User = mongoose.model('User', userSchema);
 

@@ -16,4 +16,6 @@ router.post('/reset-password', (req, res) => {
   res.status(200).json({ message: 'Password reset email sent' });
 });
 
+router.post('/login', authControllers.login);
+
 module.exports = router;
