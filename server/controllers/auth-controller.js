@@ -1,5 +1,6 @@
 const User = require("../models/user-model");
 const bcrypt = require('bcryptjs'); // Ensure bcrypt is imported
+const jwt = require('jsonwebtoken'); // Import JWT
 
 // Home handler
 const home = async (req, res) => {
