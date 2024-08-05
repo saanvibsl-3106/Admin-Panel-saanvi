@@ -1,7 +1,10 @@
 const express = require('express');
+
 const router = express.Router();
 const authControllers = require("../controllers/auth-controller");
 const { validateRegister, validateLogin } = require('../middlewares/auth-middleware'); // Adjust path as needed
+
+
 
 // Define routes with middleware
 router.get('/', authControllers.home);
