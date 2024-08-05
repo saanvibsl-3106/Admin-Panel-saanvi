@@ -1,6 +1,5 @@
 const User = require("../models/user-model");
 const bcrypt = require('bcryptjs'); // Ensure bcrypt is imported
-const jwt = require('jsonwebtoken'); // Import JWT
 
 // Home handler
 const home = async (req, res) => {
@@ -16,11 +15,6 @@ const home = async (req, res) => {
 const register = async (req, res) => {
   try {
     const { username, password, phone, isAdmin } = req.body;
-
-    // Validate input
-    if (!username || !password || !phone) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
 
     // Check if the user already exists
     const existingUser = await User.findOne({ username });
@@ -50,11 +44,6 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-
-    // Validate input
-    if (!username || !password) {
-      return res.status(400).json({ message: "Username and password are required" });
-    }
 
     // Find the user
     const user = await User.findOne({ username });
