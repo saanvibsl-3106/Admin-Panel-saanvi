@@ -1,21 +1,27 @@
-require("dotenv").config();
+require('dotenv').config();
 const express = require('express');
-const app = express();
 const cors = require('cors');
+const app = express();
 const port = 3000;
 
 const authRouter = require('./routes/auth-router'); // Ensure this path is correct
-const contactRouter = require('./routes/contact-route');
+const dataRouter = require('./routes/experince-router');
+const adminRouter = require('./routes/admin-router');
 const { connectDb } = require('./utils/db'); // Import the connectDb function
-const errorHandler = require("./middlewares/error-middleware");
+const errorHandler = require('./middlewares/error-middleware');
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your React app's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Routes
-app.use("/api/auth", authRouter);
-app.use("/api/form", contactRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/data', dataRouter);
+app.use('/api/admin', adminRouter);
 
 // Error handling middleware should be added after route definitions
 app.use(errorHandler);

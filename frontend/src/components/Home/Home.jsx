@@ -1,8 +1,9 @@
-// components/Home/Home.jsx
-import homeImage from '../../assets/home.png'; // Adjust the import path if needed
+import homeImage from '../../assets/home.png'; // Ensure this path is correct
+import ExperienceList from './ExpList';
 
 export default function Home() {
   return (
+    <>
     <div className="flex items-center justify-between min-h-screen bg-green-50">
       <div className="flex-shrink-0 w-1/2 p-8">
         <img
@@ -17,5 +18,7 @@ export default function Home() {
       </div>
       
     </div>
+    <ExperienceList/>
+    </>
   );
 }

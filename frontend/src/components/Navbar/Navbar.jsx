@@ -49,17 +49,6 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/contact"
-              className={({ isActive }) => 
-                `px-4 py-2 border border-white rounded-md
-                ${isActive ? 'bg-green-600 text-white' : 'bg-transparent text-white'}`
-              }
-            >
-              Contact
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/register"
               className={({ isActive }) => 
                 `px-4 py-2 border border-white rounded-md

@@ -12,11 +12,18 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/auth/register', { username, password, phone });
-      console.log(response);
-      setMessage(response.data.message);
-      setError('');
+      
+      if (response.status === 200) {
+        // Registration was successful
+        setMessage(response.data.message);
+        setError('');
+      } else {
+        // Handle unexpected status codes
+        setMessage('');
+        setError(response.data.message);
+      }
     } catch (error) {
-      // Updated to handle both error messages from the backend
+      // Handle error from backend or network issues
       setError(error.response?.data?.message || 'An error occurred');
       setMessage('');
     }

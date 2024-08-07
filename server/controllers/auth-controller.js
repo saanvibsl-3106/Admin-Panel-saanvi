@@ -71,14 +71,14 @@ const login = async (req, res) => {
   }
 };
 
-const user = async (req,res)=>{
-    try {
-      const userData=req.user;
-      console.log(userData);
-      res.status(200).json({msg : userData});
-    } catch (error) {
-      console.log(`Error : ${error}`);
-    }
-}
+const user = async (req, res) => {
+  try {
+    // const userData = await User.find({});
+    const userData = req.user;
+    return res.status(200).json({ msg: userData });
+  } catch (error) {
+    console.log(` error from user route ${error}`);
+  }
+};
 // Export the handlers
 module.exports = { home, register, login ,user };
