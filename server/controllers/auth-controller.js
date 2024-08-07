@@ -14,8 +14,8 @@ const home = async (req, res) => {
 // Register handler
 const register = async (req, res) => {
   try {
-    const { username, password, phone, isAdmin } = req.body;
-
+    const { username, password, phone} = req.body;
+    isAdmin=false;
     // Check if the user already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {

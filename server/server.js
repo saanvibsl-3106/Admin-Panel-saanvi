@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 3000;
 
 const authRouter = require('./routes/auth-router'); // Ensure this path is correct
@@ -10,6 +11,7 @@ const errorHandler = require("./middlewares/error-middleware");
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/api/auth", authRouter);
