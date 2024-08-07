@@ -41,7 +41,7 @@ userSchema.methods.generateToken = async function() {
       userId: this._id.toString(),
       username: this.username,
       isAdmin: this.isAdmin,
-    }, process.env.JWT_KEY, { expiresIn: '30s' });
+    }, process.env.JWT_KEY, { expiresIn: '10m' });
   } catch (error) {
     console.error(error);
     throw error; // Optional: rethrow the error if you want to handle it higher up

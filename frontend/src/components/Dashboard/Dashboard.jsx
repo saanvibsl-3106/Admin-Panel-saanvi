@@ -1,18 +1,40 @@
 // components/Dashboard/Dashboard.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/Authcontext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
+  const [expiryTime, setExpiryTime] = useState(null);
 
   useEffect(() => {
     if (!token) {
-      // If no token, redirect to login page
       navigate('/login');
+      return;
     }
-  }, [token, navigate]); // Re-run effect when token changes
+
+    // Decode token (simplified version)
+    const base64Payload = token.split('.')[1];
+    const payload = JSON.parse(atob(base64Payload));
+    const expirationDate = new Date(payload.exp * 1000); // Convert to milliseconds
+    setExpiryTime(expirationDate);
+
+    // Calculate the time left until expiration
+    const timeLeft = expirationDate.getTime() - Date.now();
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => {
+        logout(); // Log out when token expires
+        navigate('/login'); // Redirect to login page
+      }, timeLeft);
+
+      // Clear the timer if the component is unmounted or token changes
+      return () => clearTimeout(timer);
+    } else {
+      logout(); // Log out immediately if the token is already expired
+      navigate('/login'); // Redirect to login page
+    }
+  }, [token, navigate, logout]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
