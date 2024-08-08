@@ -8,6 +8,7 @@ import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Admin from "./components/Admin/AdminDashboard";
 import NotFound from './404er';
 import { AuthProvider } from "./context/Authcontext";
 import "./index.css";
@@ -25,8 +26,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             
           </Route>
           <Route path="dashboard" element={<Dashboard />} />
-          {/* 404 Route should be placed last */}
+          <Route path="admin" element={<Admin />} >
+                <Route></Route>
+          </Route>
           <Route path="*" element={<NotFound />} />
+         
         </Routes>
       </Router>
     </AuthProvider>
