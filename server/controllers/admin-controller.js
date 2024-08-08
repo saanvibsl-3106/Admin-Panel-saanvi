@@ -1,7 +1,6 @@
 const User = require('../models/user-model');
 const Experience = require('../models/experince-model');
 
-// Function to get all users
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({}, { password: 0 });
@@ -10,11 +9,10 @@ const getAllUsers = async (req, res, next) => {
     }
     return res.status(200).json(users);
   } catch (error) {
-    next(error); // Pass errors to the error handling middleware
+    next(error);
   }
 };
 
-// Function to get all experiences
 const getAllExp = async (req, res, next) => {
   try {
     const exp = await Experience.find();
@@ -23,11 +21,10 @@ const getAllExp = async (req, res, next) => {
     }
     return res.status(200).json(exp);
   } catch (error) {
-    next(error); // Pass errors to the error handling middleware
+    next(error);
   }
 };
 
-// Function to delete a user by ID
 const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -37,11 +34,10 @@ const deleteUser = async (req, res, next) => {
     }
     return res.status(200).json({ msg: "User deleted successfully" });
   } catch (error) {
-    next(error); // Pass errors to the error handling middleware
+    next(error);
   }
 };
 
-// Function to delete an experience by ID
 const deleteExperience = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -51,7 +47,7 @@ const deleteExperience = async (req, res, next) => {
     }
     return res.status(200).json({ msg: "Experience deleted successfully" });
   } catch (error) {
-    next(error); // Pass errors to the error handling middleware
+    next(error);
   }
 };
 
