@@ -1,4 +1,3 @@
-// components/AdminUsers.jsx
 import { useEffect, useState } from "react";
 import UserForm from "./UserForm"; // Import the UserForm component
 
@@ -22,7 +21,6 @@ export default function AdminUsers() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 setUsers(data);
             } else {
                 console.error('Error fetching users:', response.statusText);
@@ -75,7 +73,7 @@ export default function AdminUsers() {
     };
 
     const filteredUsers = users.filter(user =>
-        user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
@@ -87,7 +85,7 @@ export default function AdminUsers() {
             <h1 className="text-xl font-bold mb-4">Users List</h1>
             <input
                 type="text"
-                placeholder="Search by username..."
+                placeholder="Search by name..."
                 value={searchQuery}
                 onChange={handleSearchChange}
                 className="mb-4 p-2 border border-gray-300 rounded"
@@ -104,10 +102,13 @@ export default function AdminUsers() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredUsers.map((user) => (
                         <div key={user._id} className="bg-white shadow-md rounded-lg p-4">
-                            <h2 className="font-semibold text-lg mb-2">{user.username}</h2>
-                            <p className="text-gray-600">Phone: {user.phone}</p>
+                            <h2 className="font-semibold text-lg mb-2">{user.name}</h2>
+                            <p className="text-gray-600">Roll Number: {user.rollNo}</p>
+                            <p className="text-gray-600">Email: {user.email}</p>
+                            <p className="text-gray-600">Branch: {user.branch}</p>
+                            <p className="text-gray-600">Year: {user.year}</p>
+                            <p className="text-gray-600">Role: {user.role}</p>
                             <p className="text-gray-500">Admin: {user.isAdmin ? 'Yes' : 'No'}</p>
-                            {user.email && <p className="text-gray-600">Email: {user.email}</p>}
                             {user.createdAt && (
                                 <p className="text-gray-500 text-sm mt-2">
                                     Joined: {new Date(user.createdAt).toLocaleDateString()}

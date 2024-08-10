@@ -11,19 +11,20 @@ const home = async (req, res) => {
   }
 };
 
-// Register handler
+// Register handler 
 const register = async (req, res) => {
   try {
-    const { username, password, phone} = req.body;
-    isAdmin=false;
+    const { rollNo, email, name, branch, year, role, password } = req.body;
+    const isAdmin = false; // Default value
+
     // Check if the user already exists
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ $or: [{ rollNo }, { email }] });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     // Create a new user
-    const newUser = new User({ username, password, phone, isAdmin });
+    const newUser = new User({ rollNo, email, name, branch, year, role, password, isAdmin });
     await newUser.save();
 
     // Generate a token
@@ -43,10 +44,10 @@ const register = async (req, res) => {
 // Login handler
 const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // Find the user
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -78,7 +79,9 @@ const user = async (req, res) => {
     return res.status(200).json({ msg: userData });
   } catch (error) {
     console.log(` error from user route ${error}`);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 // Export the handlers
-module.exports = { home, register, login ,user };
+module.exports = { home, register, login, user };

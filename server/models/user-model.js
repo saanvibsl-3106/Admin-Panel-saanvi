@@ -1,18 +1,36 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // To hash passwords
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
-  username: {
+  rollNo: {
     type: String,
     required: true,
-    unique: true // Ensure unique usernames
+    unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  branch: {
+    type: String,
+    required: true
+  },
+  year: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    enum: ['Mentor', 'Mentee'],
+    required: true
   },
   password: {
-    type: String,
-    required: true,
-  },
-  phone: {
     type: String,
     required: true,
   },
@@ -34,17 +52,17 @@ userSchema.pre('save', async function(next) {
   }
 }); 
 
-//JWT
+// JWT
 userSchema.methods.generateToken = async function() {
   try {
     return jwt.sign({
       userId: this._id.toString(),
-      username: this.username,
+      username: this.username, // Make sure this field exists if used
       isAdmin: this.isAdmin,
     }, process.env.JWT_KEY, { expiresIn: '10m' });
   } catch (error) {
     console.error(error);
-    throw error; // Optional: rethrow the error if you want to handle it higher up
+    throw error;
   }
 };
 

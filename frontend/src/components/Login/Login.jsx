@@ -4,30 +4,31 @@ import { useAuth } from '../../context/Authcontext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // Updated to use email instead of username
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const { login, isAdmin } = useAuth(); // Extract login and isAdmin from context
+  const { login } = useAuth(); // Extract login from context
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/auth/login', {
-        username,
+        email, // Changed from username to email
         password,
       });
-      
+
       // Extract token from response data
       const { token } = response.data;
-      
-      
+
       // Use the login function from context to set the token
       login(token);
 
       setMessage(response.data.message);
       setError('');
+
+      // Fetch user data to determine admin status
       const userResponse = await axios.get('http://localhost:3000/api/auth/user', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,14 +37,10 @@ export default function Login() {
 
       // Extract user data
       const userData = userResponse.data;
-      
 
       // Determine if user is an admin
       const isAdmin = userData.msg.isAdmin || false;
 
-      setMessage(response.data.message);
-      setError('');
-      
       // Redirect based on isAdmin status
       if (isAdmin) {
         navigate('/admin');
@@ -51,7 +48,6 @@ export default function Login() {
         navigate('/dashboard');
       }
     } catch (error) {
-      
       setError(error.response?.data?.message || 'An error occurred');
       setMessage('');
     }
@@ -65,11 +61,11 @@ export default function Login() {
         {message && <p className="text-green-500 mb-4">{message}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Username</label>
+            <label className="block text-gray-700 mb-2">Email</label>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
