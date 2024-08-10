@@ -1,5 +1,4 @@
-// components/Login/Login.jsx
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/Authcontext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
@@ -9,20 +8,50 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const { login } = useAuth();
+  const { login, isAdmin } = useAuth(); // Extract login and isAdmin from context
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('Attempting login with:', { username, password });
-      const response = await axios.post('http://localhost:3000/api/auth/login', { username, password });
-      login(response.data.token);
+      const response = await axios.post('http://localhost:3000/api/auth/login', {
+        username,
+        password,
+      });
+      
+      // Extract token from response data
+      const { token } = response.data;
+      
+      
+      // Use the login function from context to set the token
+      login(token);
+
       setMessage(response.data.message);
       setError('');
-      navigate('/dashboard'); // Redirect to the dashboard
+      const userResponse = await axios.get('http://localhost:3000/api/auth/user', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Extract user data
+      const userData = userResponse.data;
+      
+
+      // Determine if user is an admin
+      const isAdmin = userData.msg.isAdmin || false;
+
+      setMessage(response.data.message);
+      setError('');
+      
+      // Redirect based on isAdmin status
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
-      console.error('Error response:', error.response);
+      
       setError(error.response?.data?.message || 'An error occurred');
       setMessage('');
     }

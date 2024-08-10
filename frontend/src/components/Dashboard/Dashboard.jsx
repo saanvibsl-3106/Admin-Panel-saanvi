@@ -4,12 +4,13 @@ import { useAuth } from '../../context/Authcontext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { token, logout } = useAuth();
+  const { token, logout ,isAdmin} = useAuth();
   const navigate = useNavigate();
   const [expiryTime, setExpiryTime] = useState(null);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    
     if (!token) {
       navigate('/login');
       return;
@@ -58,7 +59,7 @@ export default function Dashboard() {
     if (token) {
       fetchUserData();
     }
-  }, [token]);
+  }, [token,isAdmin]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

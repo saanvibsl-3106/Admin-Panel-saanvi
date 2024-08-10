@@ -9,6 +9,8 @@ import Login from "./components/Login/Login";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Admin from "./components/Admin/AdminDashboard";
+import AdminUsers from "./components/Admin/AdminUsers";
+import AdminExp from "./components/Admin/AdminExp";
 import NotFound from './404er';
 import { AuthProvider } from "./context/Authcontext";
 import "./index.css";
@@ -26,8 +28,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             
           </Route>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="admin" element={<Admin />} >
-                <Route></Route>
+          <Route path="/admin" element={<Admin />} >
+                <Route path="users" element={<AdminUsers/>}></Route>
+                <Route path="Exp" element={<AdminExp />}></Route>
           </Route>
           <Route path="*" element={<NotFound />} />
          
