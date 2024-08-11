@@ -1,6 +1,11 @@
+import style from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+const fontKrona = style.div`
+  fontFamily: 'Krona One';
+  `;
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -159,3 +164,38 @@ export default function Register() {
     </div>
   );
 }
+// Registration Page
+
+{/* <div class="flex flex-col h-dvh w-screen">
+    <div class="w-screen h-[95px] bg-[#2F3DBD] flex text-white items-center">
+        <img src="../img/nitj_logo2.png" alt="" class="h-[72px] ml-[12px]">
+        <span class="text-2xl">Dr. BR AMBEDKAR NATIONAL INSTITUTE OF TECHNOLOGY , JALANDHAR</span>
+    </div>
+    <div class="w-screen h-screen flex items-center justify-center flex-col fontKrona">
+        <div class="h-[60px] w-[345px] bg-[#FAB953] mb-5 text-black flex item-center justify-center">
+            <p class="text-xl md:text-2xl mt-[4%]">Registration</p>
+        </div>
+        <form action="post" class="bg-[#E7E7E7] py-10 px-12 md:text-2xl text-lg">
+            <div class="mb-4">
+                <label class="block font-bold mb-2" for="username">
+                    Username
+                </label>
+                <input class="w-[600px] bg-[#E7E7E7] border border-black py-2 px-3" id="username" type="text">
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input class="w-[600px] bg-[#E7E7E7] border border-black py-2 px-3" id="email" type="text">
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2" for="pass">
+                    Password
+                </label>
+                <input class="w-[600px] bg-[#E7E7E7] border border-black py-2 px-3" id="password" type="text">
+            </div>
+        </form>
+        <button class="text-2xl mt-4 transition ease-in-out duration-300 text-white w-[600px] px-15 py-4 bg-[#5A6AFE] hover:bg-[#4355f1] block rounded-md">Register</button>
+    </div>
+</div> */}
+    
