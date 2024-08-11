@@ -7,5 +7,8 @@ export default {
   theme: {
     extend: {},
   },
+  fontFamily : {
+    krona: ['Krona One'],
+  },
   plugins: [],
 }
